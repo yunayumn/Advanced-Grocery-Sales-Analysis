@@ -143,11 +143,11 @@ WITH CustomerCategoryPurchases AS (
     SELECT
         s.CustomerID,
         p.CategoryID,
-        COUNT(DISTINCT s.OrderID) AS PurchaseCount
+        COUNT(DISTINCT s.SalesID) AS PurchaseCount
     FROM
-        Sales AS s
+        mydatabase.main.sales AS s
     JOIN
-        Products AS p
+        mydatabase.main.products AS p
         ON s.ProductID = p.ProductID
     GROUP BY
         s.CustomerID,
@@ -167,9 +167,9 @@ WITH CustomerCategoryPurchases AS (
         p.CategoryID,
         COUNT(DISTINCT s.CustomerID) AS TotalCustomerCount
     FROM
-        Sales AS s
+        mydatabase.main.sales AS s
     JOIN
-        Products AS p
+        mydatabase.main.products AS p
         ON s.ProductID = p.ProductID
     GROUP BY
         p.CategoryID
@@ -183,7 +183,7 @@ SELECT
     ) AS RepeatPurchaseRate
 FROM
     Categories AS c
-LEFT JOIN
+JOIN
     RepeatCustomersPerCategory AS rc
     ON c.CategoryID = rc.CategoryID
 JOIN
@@ -202,12 +202,12 @@ WITH Top1Customer AS (
     SUM(s.Quantity * p.Price * (1 - s.Discount)) AS TotalSpent,
     RANK() OVER (ORDER BY SUM(s.Quantity * p.Price * (1 - s.Discount)) DESC) AS Ranking
   FROM
-    `fsda-sql-01.grocery_dataset.sales` AS s
+    mydatabase.main.sales AS s
   JOIN
-    `fsda-sql-01.grocery_dataset.products` AS p
+    mydatabase.main.products AS p
   ON s.ProductID = p.ProductID
   JOIN
-    `fsda-sql-01.grocery_dataset.customers` AS cu
+    mydatabase.main.customers AS cu
   ON s.CustomerID = cu.CustomerID
   GROUP BY
     s.CustomerID
@@ -218,12 +218,12 @@ revenue AS (
     s.SalesDate,
     SUM(s.Quantity * p.Price * (1 - s.Discount)) AS Revenue
   FROM
-    `fsda-sql-01.grocery_dataset.sales` AS s
+    mydatabase.main.sales AS s
   JOIN
-    `fsda-sql-01.grocery_dataset.products` AS p
+    mydatabase.main.products AS p
   ON s.ProductID = p.ProductID
   JOIN
-    `fsda-sql-01.grocery_dataset.customers` AS cu
+    mydatabase.main.customers AS cu
   ON s.CustomerID = cu.CustomerID
   JOIN Top1Customer AS t
   ON s.CustomerID = t.CustomerID
