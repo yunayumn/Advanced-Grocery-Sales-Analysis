@@ -2,13 +2,13 @@
 
 This project provides an advanced sales performance analysis for a grocery retail business. The goal was to transform raw sales data into actionable business insights, focusing on key performance indicators (KPIs) and customer behavior.
 
-## Tools and Technologies
+## Tools Used
 
-- **BigQuery:** Used for its powerful, serverless data warehousing capabilities to handle and analyze large-scale datasets.
+- **BigQuery:** Used as a mandatory tool to analyze large-scale datasets.
 
 - **DBeaver:** Served as the primary SQL client for connecting to databases, writing queries, and exploring data.
 
-- **DuckDB:** Utilized for its fast, in-process analytical processing, which was ideal for quick, local data analysis tasks.
+- **DuckDB:** Utilized for its fast and local data analysis tasks.
 
 ## Project Structure and Contents
 
